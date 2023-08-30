@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
+
+      html {
+        color-scheme: dark;
+      }
+
+      .title {
+        text-align: center;
+        font-size: calc(50px + 2.5vw);
+        font-family: "Luckiest Guy", cursive;
+        text-transform: uppercase;
+      }
+
+      .overlap {
+        --overlap: 0.15ch;
+        --shadow-offset: 0.1ch;
+        --shadow-blur: 0.2ch;
+        --shadow-color: black;
+        letter-spacing: calc(var(--overlap) * -1);
+        isolation: isolate;
+      }
+
+      .overlap-front {
+        --mult: 1;
+      }
+
+      .overlap-back {
+        --mult: -1;
+      }
+
+      .overlap > span {
+        position: relative;
+        z-index: calc(var(--index, 1) * var(--mult, 1));
+      }
+
+      .overlap-front > span:not(:first-of-type),
+      .overlap-back > span:not(:last-of-type) {
+        text-shadow: calc(var(--mult, 1) * var(--shadow-offset, 0) * -1) 0
+          var(--shadow-blur, 0) var(--shadow-color, black);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1 class="title overlap overlap-front">Hello World</h1>
+    <h1 class="title overlap overlap-back">Hello World</h1>
+  </body>
+
+  <script>
+    // Get text to anime
+    const overlapEls = document.querySelectorAll(".overlap") || [];
+
+    // Give effect to each letter
+    overlapEls.forEach((el) => {
+      const chars = [...el.textContent];
+      el.innerHTML = "";
+      chars.forEach((char, index) => {
+        const span = document.createElement("span");
+        span.textContent = char;
+        span.style.setProperty("--index", index);
+        el.append(span);
+      });
+    });
+  </script>
+</html>
