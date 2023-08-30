@@ -1,10 +1,17 @@
 html {
   color-scheme: dark;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 iframe {
   width: 100%;
   border: none;
+  overflow: hidden;
 }
 
 .hello-world-overlap {
